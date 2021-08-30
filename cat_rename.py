@@ -37,14 +37,14 @@ def rename():
 
 	for i in range(len(File_R1)):
 		if os.path.exists('fastq/%s' % (File_R1[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i], Antibody[i]))
+			os.system('cp fastq/%s fastq/%s_%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i], Antibody[i]))
 		elif os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])) == False:
 			print('fastq/%s and fastq/%s_%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i], Antibody[i]))
 			sys.exit(1)
 
 	for i in range(len(File_R2)):
 		if os.path.exists('fastq/%s' % (File_R2[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R2.fastq.gz' % (File_R2[i],sample[i],condition[i],replicate[i], Antibody[i]))
+			os.system('cp fastq/%s fastq/%s_%s_%s_%s_R2.fastq.gz' % (File_R2[i],sample[i],condition[i],replicate[i], Antibody[i]))
 		elif os.path.exists('fastq/%s_%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])) == False:
 			print('fastq/%s and fastq/%s_%s_%s_%s_R2.fastq.gz do not exist!' % (File_R2[i], sample[i],condition[i],replicate[i], Antibody[i]))
 			sys.exit(1)
