@@ -1,7 +1,6 @@
 #!/bin/bash -l
 module load miniconda3/cpu/4.9.2
 conda activate /gpfs/data/fisherlab/conda_envs/CUT-RUN
-cd ..
 mkdir fastq
 if ! python cat_rename_init/cat_rename.py /gpfs/data/sequence/results/moorelab/2021-07-27/fastq/ ${1}; then
     echo "Exiting..."
