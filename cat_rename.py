@@ -13,27 +13,67 @@ def concat():
 		if 'L00' in file:
 			if os.path.isfile(file) and file.endswith('fastq.gz'):
 					a = file.split('L00')
-					f = '%s%s' % (a[0], a[1][2:4])
+					f = '%s%s' % (a[0], a[1][2:])
 					if f not in samples:
 						samples[f] = [file]
 					else:
 						samples[f].append(file)
+		elif os.path.isfile(file) and file.endswith('fastq.gz'):
+			samples[file] = [file]
 	for sample in samples:
 		com = samples[sample]
 		com.sort()
 		com.insert(0, 'cat')
-		with open('%s%s_001.fastq.gz' % (cur_dir, sample.split('/')[-1]), 'w') as R1:			
+		with open('%s%s' % (cur_dir, sample.split('/')[-1]), 'w') as R1:			
 			subprocess.run(com, stdout=R1)
 
-#rename samples based on sample ids in samples_info.tab
-def rename():
+#rename samples based on sample ids in samples_info.tab. This differs with different workflows
+def rename_RNA_SE():
 	sample_file = "samples_info.tab"
-	sample = pd.read_table(sample_file)['Sample']
-	replicate = pd.read_table(sample_file)['Replicate']
-	condition = pd.read_table(sample_file)['Condition']
-	Antibody = pd.read_table(sample_file)['Antibody']
-	File_R1 = pd.read_table(sample_file)['File_Name_R1']
-	File_R2 = pd.read_table(sample_file)['File_Name_R2']
+	table = pd.read_table(sample_file)
+	sample = table['Sample']
+	replicate = table['Replicate']
+	condition = table['Condition']
+	File_R1 = table['File_Name_R1']
+
+	for i in range(len(File_R1)):
+		if os.path.exists('fastq/%s' % (File_R1[i])):
+			os.system('cp fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i]))
+		elif os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
+			print('fastq/%s and fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i]))
+			sys.exit(1)
+
+def rename_RNA_PE():
+	sample_file = "samples_info.tab"
+	table = pd.read_table(sample_file)
+	sample = table['Sample']
+	replicate = table['Replicate']
+	condition = table['Condition']
+	File_R1 = table['File_Name_R1']
+	File_R2 = table['File_Name_R2']
+
+	for i in range(len(File_R1)):
+		if os.path.exists('fastq/%s' % (File_R1[i])):
+			os.system('cp fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i]))
+		elif os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
+			print('fastq/%s and fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i]))
+			sys.exit(1)
+
+	for i in range(len(File_R2)):
+		if os.path.exists('fastq/%s' % (File_R2[i])):
+			os.system('cp fastq/%s fastq/%s_%s_%s_R2.fastq.gz' % (File_R2[i],sample[i],condition[i],replicate[i]))
+		elif os.path.exists('fastq/%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
+			print('fastq/%s and fastq/%s_%s_%s_R2.fastq.gz do not exist!' % (File_R2[i], sample[i],condition[i],replicate[i]))
+
+def rename_ChIP():
+	sample_file = "samples_info.tab"
+	table = pd.read_table(sample_file)
+	sample = table['Sample']
+	replicate = table['Replicate']
+	condition = table['Condition']
+	Antibody = table['Antibody']
+	File_R1 = table['File_Name_R1']
+	File_R2 = table['File_Name_R2']
 
 	for i in range(len(File_R1)):
 		if os.path.exists('fastq/%s' % (File_R1[i])):
@@ -50,4 +90,10 @@ def rename():
 			sys.exit(1)
 
 concat()
-rename()
+
+if sys.argv[2] == 'CUT-RUN' or sys.argv[2] == 'ChIPseq':
+	rename_ChIP()
+if sys.argv[2] == 'RNAseq_PE' or sys.argv[2] == 'RNAseq_PE_HISAT2_stringtie' or sys.argv[2] == 'RNAseq_PE_HISAT2_stringtie_novel_transcripts':
+	rename_RNA_PE()
+if sys.argv[2] == 'RNAseq_SE':
+	rename_RNA_SE()

@@ -13,5 +13,5 @@ This script:
 This bash script:
 
 		1. loads the miniconda3/4.6.14 module
-		2. Loads the conda environment (/gpfs/data/fisherlab/conda_envs/...). You can clone the conda environment using the CUT-RUN.yml file and modify this bash script to load the env.
+		2. Loads the conda environment (/gpfs/data/fisherlab/conda_envs/...). You can clone the conda environment specific to the workflow being used.
 		3. Executes snakemake
