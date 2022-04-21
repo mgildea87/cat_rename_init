@@ -70,7 +70,7 @@ def rename_RNA_PE():
 	for i in range(len(File_R2)):
 		file = File_R2[i].split('L00')
 		file = '%s%s' % (file[0], file[1][2:])
-		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
+		if os.path.exists('fastq/%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
 			os.system('mv fastq/%s fastq/%s_%s_%s_R2.fastq.gz' % (file,sample[i],condition[i],replicate[i]))
@@ -101,7 +101,7 @@ def rename_ChIP():
 	for i in range(len(File_R2)):
 		file = File_R2[i].split('L00')
 		file = '%s%s' % (file[0], file[1][2:])
-		if os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
+		if os.path.exists('fastq/%s_%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
 			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R2.fastq.gz' % (file,sample[i],condition[i],replicate[i], Antibody[i]))
