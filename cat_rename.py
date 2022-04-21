@@ -37,10 +37,14 @@ def rename_RNA_SE():
 	File_R1 = table['File_Name_R1']
 
 	for i in range(len(File_R1)):
-		if os.path.exists('fastq/%s' % (File_R1[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i]))
+		file = File_R1[i].split('L00')
+		file = '%s%s' % (file[0], file[1][2:])
+		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
+			continue
+		if os.path.exists('fastq/%s' % (file)):
+			os.system('mv fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (file,sample[i],condition[i],replicate[i]))
 		elif os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
-			print('fastq/%s and fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i]))
+			print('fastq/%s or fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (file, sample[i],condition[i],replicate[i]))
 			sys.exit(1)
 
 def rename_RNA_PE():
@@ -53,17 +57,25 @@ def rename_RNA_PE():
 	File_R2 = table['File_Name_R2']
 
 	for i in range(len(File_R1)):
-		if os.path.exists('fastq/%s' % (File_R1[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i]))
+		file = File_R1[i].split('L00')
+		file = '%s%s' % (file[0], file[1][2:])
+		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
+			continue
+		if os.path.exists('fastq/%s' % (file)):
+			os.system('mv fastq/%s fastq/%s_%s_%s_R1.fastq.gz' % (file,sample[i],condition[i],replicate[i]))
 		elif os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
-			print('fastq/%s and fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i]))
+			print('fastq/%s or fastq/%s_%s_%s_R1.fastq.gz do not exist!' % (file, sample[i],condition[i],replicate[i]))
 			sys.exit(1)
 
 	for i in range(len(File_R2)):
-		if os.path.exists('fastq/%s' % (File_R2[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_R2.fastq.gz' % (File_R2[i],sample[i],condition[i],replicate[i]))
+		file = File_R2[i].split('L00')
+		file = '%s%s' % (file[0], file[1][2:])
+		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
+			continue
+		if os.path.exists('fastq/%s' % (file)):
+			os.system('mv fastq/%s fastq/%s_%s_%s_R2.fastq.gz' % (file,sample[i],condition[i],replicate[i]))
 		elif os.path.exists('fastq/%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i])) == False:
-			print('fastq/%s and fastq/%s_%s_%s_R2.fastq.gz do not exist!' % (File_R2[i], sample[i],condition[i],replicate[i]))
+			print('fastq/%s or fastq/%s_%s_%s_R2.fastq.gz do not exist!' % (file, sample[i],condition[i],replicate[i]))
 
 def rename_ChIP():
 	sample_file = "samples_info.tab"
@@ -76,17 +88,25 @@ def rename_ChIP():
 	File_R2 = table['File_Name_R2']
 
 	for i in range(len(File_R1)):
-		if os.path.exists('fastq/%s' % (File_R1[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R1.fastq.gz' % (File_R1[i],sample[i],condition[i],replicate[i], Antibody[i]))
+		file = File_R1[i].split('L00')
+		file = '%s%s' % (file[0], file[1][2:])
+		if os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
+			continue
+		if os.path.exists('fastq/%s' % (file)):
+			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R1.fastq.gz' % (file,sample[i],condition[i],replicate[i], Antibody[i]))
 		elif os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])) == False:
-			print('fastq/%s and fastq/%s_%s_%s_%s_R1.fastq.gz do not exist!' % (File_R1[i], sample[i],condition[i],replicate[i], Antibody[i]))
+			print('fastq/%s or fastq/%s_%s_%s_%s_R1.fastq.gz do not exist!' % (file, sample[i],condition[i],replicate[i], Antibody[i]))
 			sys.exit(1)
 
 	for i in range(len(File_R2)):
-		if os.path.exists('fastq/%s' % (File_R2[i])):
-			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R2.fastq.gz' % (File_R2[i],sample[i],condition[i],replicate[i], Antibody[i]))
+		file = File_R2[i].split('L00')
+		file = '%s%s' % (file[0], file[1][2:])
+		if os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
+			continue
+		if os.path.exists('fastq/%s' % (file)):
+			os.system('mv fastq/%s fastq/%s_%s_%s_%s_R2.fastq.gz' % (file,sample[i],condition[i],replicate[i], Antibody[i]))
 		elif os.path.exists('fastq/%s_%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])) == False:
-			print('fastq/%s and fastq/%s_%s_%s_%s_R2.fastq.gz do not exist!' % (File_R2[i], sample[i],condition[i],replicate[i], Antibody[i]))
+			print('fastq/%s or fastq/%s_%s_%s_%s_R2.fastq.gz do not exist!' % (file, sample[i],condition[i],replicate[i], Antibody[i]))
 			sys.exit(1)
 
 concat()
