@@ -10,7 +10,7 @@ done
 module load miniconda3/cpu/4.9.2
 conda activate /gpfs/data/fisherlab/conda_envs/"$conda_env"
 mkdir fastq
-if ! python cat_rename_init/cat_rename.py /gpfs/data/sequence/results/moorelab/2021-07-27/fastq/ "$workflow" ${1}; then
+if ! python cat_rename_init/cat_rename.py /fastq_drectory/ "$workflow" ${1}; then
     echo "Exiting..."
     exit
 fi
