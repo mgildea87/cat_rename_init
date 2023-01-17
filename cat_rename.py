@@ -37,8 +37,11 @@ def rename_RNA_SE():
 	File_R1 = table['File_Name_R1']
 
 	for i in range(len(File_R1)):
-		file = File_R1[i].split('L00')
-		file = '%s%s' % (file[0], file[1][2:])
+		if 'L00' in File_R1[i]:
+			file = File_R1[i].split('L00')
+			file = '%s%s' % (file[0], file[1][2:])
+		else:
+			file = File_R1[i]
 		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
@@ -57,8 +60,11 @@ def rename_RNA_PE():
 	File_R2 = table['File_Name_R2']
 
 	for i in range(len(File_R1)):
-		file = File_R1[i].split('L00')
-		file = '%s%s' % (file[0], file[1][2:])
+		if 'L00' in File_R1[i]:
+			file = File_R1[i].split('L00')
+			file = '%s%s' % (file[0], file[1][2:])
+		else:
+			file = File_R1[i]
 		if os.path.exists('fastq/%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
@@ -68,8 +74,11 @@ def rename_RNA_PE():
 			sys.exit(1)
 
 	for i in range(len(File_R2)):
-		file = File_R2[i].split('L00')
-		file = '%s%s' % (file[0], file[1][2:])
+		if 'L00' in File_R2[i]:
+			file = File_R2[i].split('L00')
+			file = '%s%s' % (file[0], file[1][2:])
+		else:
+			file = File_R2[i]
 		if os.path.exists('fastq/%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
@@ -88,8 +97,11 @@ def rename_ChIP():
 	File_R2 = table['File_Name_R2']
 
 	for i in range(len(File_R1)):
-		file = File_R1[i].split('L00')
-		file = '%s%s' % (file[0], file[1][2:])
+		if 'L00' in File_R1[i]:
+			file = File_R1[i].split('L00')
+			file = '%s%s' % (file[0], file[1][2:])
+		else:
+			file = File_R1[i]
 		if os.path.exists('fastq/%s_%s_%s_%s_R1.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
@@ -99,8 +111,11 @@ def rename_ChIP():
 			sys.exit(1)
 
 	for i in range(len(File_R2)):
-		file = File_R2[i].split('L00')
-		file = '%s%s' % (file[0], file[1][2:])
+		if 'L00' in File_R2[i]:
+			file = File_R2[i].split('L00')
+			file = '%s%s' % (file[0], file[1][2:])
+		else:
+			file = File_R2[i]
 		if os.path.exists('fastq/%s_%s_%s_%s_R2.fastq.gz' % (sample[i],condition[i],replicate[i], Antibody[i])):
 			continue
 		if os.path.exists('fastq/%s' % (file)):
